@@ -1,0 +1,35 @@
+{% extends 'weather_app/base.html' %}
+{% block content %}
+<a href="/" class="text-xs text-neutral-400 hover:text-neutral-200">← Back Home</a>
+<h2 class="text-lg font-semibold mt-4 mb-4">Date Range Weather</h2>
+<form method="post" class="flex flex-col sm:flex-row gap-2 mb-4 text-xs">{% csrf_token %}
+  <input name="location" placeholder="location" class="flex-1 bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+  <input type="date" name="start_date" class="bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+  <input type="date" name="end_date" class="bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+  <button class="px-4 py-2 bg-neutral-100 text-neutral-900 rounded">Create</button>
+</form>
+{% if message %}<p class="text-[11px] mb-4 {% if created_record %}text-green-400{% else %}text-red-400{% endif %}">{{ message }}</p>{% endif %}
+{% if created_record %}
+<div class="mb-6">
+  <h3 class="text-sm font-medium mb-2">{{ created_record.resolved_name }} ({{ created_record.start_date }} → {{ created_record.end_date }})</h3>
+  <div class="grid md:grid-cols-4 gap-3 text-[11px]">
+  {% for d in days %}
+    <div class="p-2 rounded border border-neutral-800 bg-neutral-900/50">
+      <div class="text-neutral-400">{{ d.date }}</div>
+      <div class="mt-1">{{ d.t_max }} / {{ d.t_min }} °C</div>
+      <div class="text-neutral-500">Wind {{ d.wind }}</div>
+      <div class="text-neutral-500">Code {{ d.code }}</div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endif %}
+<h3 class="text-sm font-medium mb-2">Recent Records</h3>
+<div class="space-y-2 text-[11px]">
+  {% for r in records %}
+  <div class="flex items-center justify-between group border border-neutral-800 rounded px-2 py-1">
+    <div class="flex-1 truncate"><a href="/records/{{ r.id }}/" class="hover:underline">{{ r.resolved_name|default:r.location_input }}</a> <span class="text-neutral-500 ml-2">{{ r.start_date }}→{{ r.end_date }}</span></div>
+  </div>
+  {% empty %}<p class="text-neutral-500 text-[11px]">None yet.</p>{% endfor %}
+</div>
+{% endblock %}

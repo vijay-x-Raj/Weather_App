@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weather</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-screen">
+  <header class="w-full bg-neutral-900/80 backdrop-blur border-b border-neutral-800">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="text-lg font-semibold tracking-tight">Weather</div>
+      <nav class="flex gap-6 text-sm">
+        <a href="/" class="text-neutral-300 hover:text-white transition">Search</a>
+        <a href="/ranges/" class="text-neutral-300 hover:text-white transition">Ranges</a>
+      </nav>
+    </div>
+  </header>
+  <main class="max-w-5xl mx-auto p-6">
+    {% block content %}{% endblock %}
+  </main>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

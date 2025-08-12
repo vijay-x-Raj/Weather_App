@@ -1,0 +1,45 @@
+{% extends 'weather_app/base.html' %}
+{% load static %}
+{% block content %}
+<form id="search-form" class="flex flex-col md:flex-row gap-3 mb-8">
+  <input id="location-input" name="q" type="text" placeholder="city / place / lat,lon"
+         class="flex-1 bg-neutral-900 border border-neutral-800 rounded px-4 py-3 text-sm placeholder-neutral-500 focus:outline-none focus:border-neutral-600" />
+  <div class="flex gap-2">
+    <button type="submit" class="px-5 py-3 bg-neutral-100 text-neutral-900 text-sm font-medium rounded hover:bg-white">Search</button>
+    <button id="geo-btn" type="button" class="px-5 py-3 bg-neutral-800 text-neutral-200 text-sm font-medium rounded border border-neutral-700 hover:border-neutral-500">Here</button>
+  </div>
+</form>
+<section class="space-y-8">
+  <div class="border border-neutral-800 p-5 rounded bg-neutral-900/50" id="current-tile">
+    <div class="flex justify-between mb-4">
+      <h2 class="text-xs tracking-widest uppercase text-neutral-400">Now</h2>
+      <span id="place" class="text-xs text-neutral-500"></span>
+    </div>
+    <div id="current" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm"></div>
+  </div>
+  <div class="border border-neutral-800 p-5 rounded bg-neutral-900/50" id="forecast-tile">
+    <h2 class="text-xs tracking-widest uppercase text-neutral-400 mb-4">Next 5 Days</h2>
+    <div id="forecast" class="grid grid-cols-2 md:grid-cols-5 gap-4 text-xs"></div>
+  </div>
+  <div class="border border-neutral-800 p-5 rounded bg-neutral-900/50" id="recent-tile">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-xs tracking-widest uppercase text-neutral-400">Recent Searches</h2>
+      <button id="refresh-searches" class="text-[11px] px-2 py-1 border border-neutral-700 rounded hover:border-neutral-500">Reload</button>
+    </div>
+    <div id="searches" class="space-y-2 text-[11px]"></div>
+  </div>
+  <div class="border border-neutral-800 p-5 rounded bg-neutral-900/50" id="records-tile">
+    <h2 class="text-xs tracking-widest uppercase text-neutral-400 mb-4">Saved Ranges</h2>
+    <form id="record-form" class="flex flex-col sm:flex-row gap-2 mb-4 text-xs">
+      <input type="text" id="rec-location" placeholder="location" class="flex-1 bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+      <input type="date" id="rec-start" class="bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+      <input type="date" id="rec-end" class="bg-neutral-900 border border-neutral-800 rounded px-2 py-2" />
+      <button class="px-3 py-2 bg-neutral-100 text-neutral-900 rounded">Add</button>
+    </form>
+    <div id="records" class="space-y-2 text-[11px]"></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

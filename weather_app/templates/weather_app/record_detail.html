@@ -1,0 +1,18 @@
+{% extends 'weather_app/base.html' %}
+{% block content %}
+<a href="/" class="text-xs text-neutral-400 hover:text-neutral-200">← Back</a>
+<h2 class="text-lg font-medium mt-4 mb-2">{{ record.resolved_name }}</h2>
+<p class="text-sm text-neutral-400 mb-4">Range: {{ record.start_date }} → {{ record.end_date }} · Lat {{ record.latitude }} Lon {{ record.longitude }}</p>
+<div class="grid md:grid-cols-3 gap-4">
+  {% for d in days %}
+  <div class="p-3 rounded border border-neutral-800 bg-neutral-900/50">
+    <div class="text-xs text-neutral-400">{{ d.date }}</div>
+    <div class="text-sm mt-1">{{ d.t_max }} / {{ d.t_min }} °C</div>
+    <div class="text-[11px] text-neutral-500">Wind {{ d.wind }}</div>
+    <div class="text-[11px] text-neutral-500">Code {{ d.code }}</div>
+  </div>
+  {% empty %}
+  <p class="text-xs text-neutral-500">No daily data.</p>
+  {% endfor %}
+</div>
+{% endblock %}

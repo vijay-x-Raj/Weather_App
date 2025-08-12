@@ -1,0 +1,41 @@
+{% extends 'weather_app/base.html' %}
+{% block head_extra %}{% endblock %}
+{% block content %}
+<a href="/" class="text-xs text-neutral-400 hover:text-neutral-200">← Back</a>
+<h2 class="text-lg font-medium mt-4 mb-2">{{ search.resolved_name }}</h2>
+<div class="grid md:grid-cols-3 gap-6">
+  <div class="md:col-span-2 space-y-6">
+    <div class="border border-neutral-800 rounded bg-neutral-900/60 p-4 backdrop-blur-sm transition hover:border-neutral-600">
+      <h3 class="text-xs tracking-widest text-neutral-400 mb-3">Current</h3>
+      {% if current %}
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+        <div><div class="text-[10px] text-neutral-500">Temp</div><div class="text-lg">{{ current.temperature_2m }}°C</div></div>
+        <div><div class="text-[10px] text-neutral-500">Wind</div><div>{{ current.windspeed_10m }} km/h</div></div>
+        <div><div class="text-[10px] text-neutral-500">Humidity</div><div>{{ current.relative_humidity_2m }}%</div></div>
+        <div><div class="text-[10px] text-neutral-500">Time</div><div>{{ current.time|slice:'11:16' }}</div></div>
+      </div>
+      {% else %}<p class="text-xs text-neutral-500">No data.</p>{% endif %}
+    </div>
+    <div class="border border-neutral-800 rounded bg-neutral-900/60 p-4 backdrop-blur-sm transition hover:border-neutral-600">
+      <h3 class="text-xs tracking-widest text-neutral-400 mb-3">Upcoming Days</h3>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-[11px]">
+      {% for d in days %}
+        <div class="p-2 rounded bg-neutral-800/40 border border-neutral-800 hover:border-neutral-600 transition">
+          <div class="text-neutral-400 text-[10px]">{{ d.date|slice:'5:' }}</div>
+          <div class="text-sm mt-1">{{ d.t_max }} / {{ d.t_min }} °C</div>
+          <div class="text-neutral-500">W {{ d.wind }}</div>
+          <div class="text-neutral-500">C {{ d.code }}</div>
+        </div>
+      {% empty %}<p class="text-xs text-neutral-500">No forecast.</p>{% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="space-y-4">
+    <div class="border border-neutral-800 rounded p-4 bg-neutral-900/50 text-[12px] text-neutral-300">
+      <div class="text-neutral-400 text-[10px] uppercase mb-1">Location Coords</div>
+      <div>Lat {{ search.latitude }} · Lon {{ search.longitude }}</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}{% endblock %}
