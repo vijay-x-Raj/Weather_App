@@ -24,6 +24,7 @@ The focus is minimal code, fast startup, and zero external JS frameworks.
 | JS | Vanilla ES6 | `static/js/main.js` handles fetch + DOM updates |
 
 ---
+
 ## Features in Detail
 
 ### 1. Search (Current + 5‑Day Summary)
