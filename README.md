@@ -61,6 +61,7 @@ Endpoints:
 ## Quick Start
 
 ### 1. Clone
+
 ```bash
 git clone https://github.com/vijay-x-Raj/Weather_App.git
 cd Weather_App
